@@ -1,25 +1,19 @@
 const express = require("express");
+const app = express();
 require("dotenv").config();
 require("./config/database");
+require("./config")(app)
 
 const carRoute = require("./routes/carRoute");
 const authRoute = require("./routes/authRoute");
 const rentalRoute = require("./routes/rentalRoute");
-const cors = require('cors');
-
-const app = express();
 
 app.use(express.json());
 
 app.use("/api/cars/", carRoute);
 app.use("/api/users/", authRoute);
 app.use("/api/rentals/", rentalRoute);
-app.use(
-  cors({
-    credentials: true,
-    origin: process.env.ORIGIN || 'http://localhost:3000',
-  })
-);
+
 
 const port = process.env.PORT || 5000;
 
